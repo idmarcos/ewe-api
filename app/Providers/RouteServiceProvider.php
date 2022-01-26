@@ -28,6 +28,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     // protected $namespace = 'App\\Http\\Controllers';
 
+    /** 
+     * @var string $api_namespace
+     */
+    protected $api_namespace ='App\\Http\\Controllers\\API';
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -38,10 +43,17 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            /*
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
+            */
+
+            Route::prefix('api/v1')
+                ->middleware('api', 'api_version:v1')
+                ->namespace($this->api_namespace.'\V1')
+                ->group(base_path('routes/api_v1.php'));  
 
             Route::middleware('web')
                 ->namespace($this->namespace)
