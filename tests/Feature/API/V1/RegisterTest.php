@@ -10,11 +10,13 @@ use App\Models\User;
 
 class RegisterTest extends TestCase
 {
+    protected $route = 'api/v1/sign-up';
+
     public function testRegisterUserWithoutData()
     {
         $data = [];
 
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -37,7 +39,7 @@ class RegisterTest extends TestCase
             'password_confirmation' => $pass
         ];
 
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -58,7 +60,7 @@ class RegisterTest extends TestCase
             'password_confirmation' => $pass
         ];
         
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -78,7 +80,7 @@ class RegisterTest extends TestCase
             'email' => 'Test@ewe.com'
         ];
         
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -99,7 +101,7 @@ class RegisterTest extends TestCase
             'password' => $pass
         ];
         
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -122,7 +124,7 @@ class RegisterTest extends TestCase
             'password_confirmation' => $pass2
         ];
 
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -139,12 +141,12 @@ class RegisterTest extends TestCase
         $pass = bcrypt('password');
         $data = [
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'Test@ewe.com',
             'password' => $pass,
             'password_confirmation' => $pass
         ];
         
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(200)
                 ->assertExactJson([
@@ -163,18 +165,18 @@ class RegisterTest extends TestCase
 
         User::create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'Test@ewe.com',
             'password' => $pass
         ]);
 
         $data = [
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'Test@ewe.com',
             'password' => $pass,
             'password_confirmation' => $pass
         ];
         
-        $response = $this->postJson('api/sign-up', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([

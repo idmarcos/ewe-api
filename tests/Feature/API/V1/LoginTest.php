@@ -10,11 +10,13 @@ use App\Models\User;
 
 class LoginTest extends TestCase
 {
+    protected $route = 'api/v1/sign-in';
+
     public function testLoginWithoutData()
     {
         $data = [];
 
-        $response = $this->postJson('api/sign-in', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -34,7 +36,7 @@ class LoginTest extends TestCase
             'password' => $pass
         ];
 
-        $response = $this->postJson('api/sign-in', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -52,7 +54,7 @@ class LoginTest extends TestCase
             'email' => 'Test@ewe.com'
         ];
 
-        $response = $this->postJson('api/sign-in', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -72,7 +74,7 @@ class LoginTest extends TestCase
             'password' => $pass
         ];
 
-        $response = $this->postJson('api/sign-in', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(422)
                 ->assertExactJson([
@@ -92,7 +94,7 @@ class LoginTest extends TestCase
             'password' => $pass
         ];
 
-        $response = $this->postJson('api/sign-in', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(401)
                 ->assertExactJson([
@@ -119,7 +121,7 @@ class LoginTest extends TestCase
             'password' => bcrypt('otra_password')
         ];
 
-        $response = $this->postJson('api/sign-in', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(401)
                 ->assertExactJson([
@@ -146,7 +148,7 @@ class LoginTest extends TestCase
             'password' => 'password'
         ];
 
-        $response = $this->postJson('api/sign-in', $data);
+        $response = $this->postJson($this->route, $data);
 
         $response->assertStatus(200)
                 ->assertExactJson([
