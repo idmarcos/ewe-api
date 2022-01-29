@@ -13,6 +13,11 @@ class Gender extends Model
         'gender'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
 
     /**
      * Get the profiles for the gender.
