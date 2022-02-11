@@ -13,6 +13,16 @@ class GenderTest extends TestCase
 {
     protected $route = 'api/v1/genders';
 
+    public function testShowGendersWithoutToken()
+    {
+        $response = $this->getJson($this->route);
+        
+        $response->assertStatus(401)
+                ->assertExactJson([
+                    'message' => 'Unauthenticated.'
+                ]);
+    }
+
     public function testShowGenders()
     {
         $user = User::factory()->create();
@@ -24,7 +34,7 @@ class GenderTest extends TestCase
                 ->assertExactJson([
                     'success' => true,
                     'message' => 'Lista de géneros.',
-                    'data' => $genders
+                    'data' => $genders->toArray()
                 ]);
     }
 }
