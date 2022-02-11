@@ -19,6 +19,11 @@ class UserProfile extends Model
         'telephone'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
 
     /**
      * Get the user that owns the profile.

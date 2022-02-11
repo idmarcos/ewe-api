@@ -25,4 +25,6 @@ Route::post('sign-in', [LoginController::class, 'signIn']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('genders', [GenderController::class, 'index']);
+    Route::get('user/profiles', [UserProfileController::class, 'myProfile']);
+    Route::put('user/profiles', [UserProfileController::class, 'updateMyProfile']);
 });
