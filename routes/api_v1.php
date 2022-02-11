@@ -3,8 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\API\V1\Auth\RegisterController;
 use App\Http\Controllers\API\V1\Auth\LoginController;
+use App\Http\Controllers\API\V1\Auth\RegisterController;
+
+use App\Http\Controllers\API\V1\GenderController;
+use App\Http\Controllers\API\V1\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +23,8 @@ use App\Http\Controllers\API\V1\Auth\LoginController;
 Route::post('sign-up', [RegisterController::class, 'signUp']);
 Route::post('sign-in', [LoginController::class, 'signIn']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('genders', [GenderController::class, 'index']);
+    Route::get('user/profiles', [UserProfileController::class, 'myProfile']);
+    Route::put('user/profiles', [UserProfileController::class, 'updateMyProfile']);
 });
