@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\V1\Auth\LoginController;
 use App\Http\Controllers\API\V1\Auth\RegisterController;
 
+use App\Http\Controllers\API\V1\CountryController;
 use App\Http\Controllers\API\V1\GenderController;
+use App\Http\Controllers\API\V1\RegionController;
 use App\Http\Controllers\API\V1\UserProfileController;
 
 /*
@@ -27,4 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('genders', [GenderController::class, 'index']);
     Route::get('user/profiles', [UserProfileController::class, 'myProfile']);
     Route::put('user/profiles', [UserProfileController::class, 'updateMyProfile']);
+
+    Route::get('countries', [CountryController::class, 'index']);
+    Route::get('regions', [RegionController::class, 'index']);
 });
